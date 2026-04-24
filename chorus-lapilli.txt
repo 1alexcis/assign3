@@ -1,0 +1,38 @@
+Chorus Lapilli Lab Notebook
+
+1. I started from my tic-tac-toe implementation and modified src/App.jsx to 
+support the chorus lapilli rules.
+
+2. The first change was adding an isSelected prop to the Square component so 
+that a selected piece highlights blue when clicked. Did this with a style prop
+setting backgroundColor to #aaf when isSelected is true.
+
+3. I added a selected state variable to the Board component to track which 
+square the current player has clicked for movement.
+
+4. I added an isAdjacent function that takes two square indices and checks if 
+they are within one step of each other horizontally, vertically, or diagonally.
+It does this by comparing row and column differences using Math.floor and modulo.
+
+5. I added a wouldWin function that simulates a move on a copy of the board and 
+checks if it results in a win for the given player.
+
+6. I modified handleClick to have two phases. For the first 6 moves (moveCount < 6)
+it works like normal tic-tac-toe, just placing pieces. After that it switches to 
+movement phase where the first click selects one of the current player's pieces 
+and the second click moves it to a valid destination.
+
+7. In the movement phase, invalid moves are rejected and selection is cleared. 
+Invalid cases include: clicking an occupied square, clicking a non-adjacent square,
+and violating the center rule.
+
+8. I implemented the center rule: if the current player has a piece in the center
+square (index 4), their move must either vacate the center or win the game. If 
+neither condition is met the move is rejected.
+
+9. I passed moveCount down from Game to Board as a prop so Board knows which 
+phase it's in.
+
+10. I tested the app by playing several full games, verifying that pieces move 
+correctly, invalid moves are rejected, the center rule is enforced, and the 
+winner is detected properly.
