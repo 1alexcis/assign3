@@ -143,6 +143,7 @@ class TestChorusLapilli(unittest.TestCase):
 
 # =========================== [ADD YOUR TESTS HERE] ===========================
 
+
     def test_new_board_empty(self):
         '''Check if a new game always starts with an empty board.'''
         tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
@@ -155,6 +156,40 @@ class TestChorusLapilli(unittest.TestCase):
         tiles[0].click()
         self.assertTileIs(tiles[0], self.SYMBOL_X)
 
+    def test_x_goes_first(self):
+        '''Check that X always goes first.'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        tiles[4].click()
+        self.assertTileIs(tiles[4], self.SYMBOL_X)
+
+    def test_alternating_turns(self):
+        '''Check that players alternate turns correctly.'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        tiles[0].click()
+        self.assertTileIs(tiles[0], self.SYMBOL_X)
+        tiles[1].click()
+        self.assertTileIs(tiles[1], self.SYMBOL_O)
+        tiles[2].click()
+        self.assertTileIs(tiles[2], self.SYMBOL_X)
+
+    def test_no_moves_after_winner(self):
+        '''Check that no more moves can be made once a player wins.'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        tiles[0].click() # X
+        tiles[3].click() # O
+        tiles[1].click() # X
+        tiles[4].click() # O
+        tiles[2].click() # X wins
+        tiles[5].click() # O tries to play
+        self.assertTileIs(tiles[5], self.SYMBOL_BLANK)
+
+    def test_cant_click_occupied_square(self):
+        '''Check that clicking an occupied square does nothing.'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        tiles[0].click() # X
+        tiles[0].click() # O tries same square
+        self.assertTileIs(tiles[0], self.SYMBOL_X)
+    
 
 # ================= [DO NOT MAKE ANY CHANGES BELOW THIS LINE] =================
 
