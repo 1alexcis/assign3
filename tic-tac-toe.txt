@@ -1,0 +1,25 @@
+Tic-Tac-Toe Lab Notebook
+
+1. I started by forking the starter repo from https://github.com/UCLA-CS-35L/assign3
+and cloning it locally. Ran ./helper init inside the assign3 directory which 
+installed all npm and Python dependencies (took about 20 seconds).
+
+2. Then I ran ./helper dev to start the dev server. Opened localhost in Chrome
+and saw the Hello World starter page, so I knew the environment was working.
+
+3. I opened src/App.jsx and replaced the starter code with the tic tac toe 
+implementation. I structured it into three components:
+
+- Square: a button that displays X, O, or empty depending on its value prop
+- Board: renders the 3x3 grid, handles click events, and displays game status
+- Game: top-level component managing move history and current move index
+
+4. I Lifted state up to Game so that history is tracked as an array of board 
+snapshots. This allows navigating back to any previous move via the list
+of buttons that's on the right.
+
+5. I added calculateWinner which checks all 8 possible winning lines. It returns
+the winning symbol (X or O) or null if no winner yet.
+
+6. I tested the code in Chrome by playing a full game. The pieces placed correctly, the winner
+was detected and displayed, and time travel buttons worked as expected.
